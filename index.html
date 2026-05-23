@@ -1,5 +1,12 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora de prima de servicios 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;background:#f0f0f0;min-height:100vh;padding:16px}
 .card{background:#fff;border-radius:14px;max-width:480px;margin:0 auto;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.1)}
@@ -22,26 +29,11 @@ body{font-family:'Inter',sans-serif;background:#f0f0f0;min-height:100vh;padding:
 .sw input:checked+.sw-track{background:#c8102e}
 .sw-track:after{content:'';position:absolute;width:19px;height:19px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
 .sw input:checked+.sw-track:after{transform:translateX(19px)}
-
-/* BOTÓN SIEMPRE ROJO Y VISIBLE */
-.btn-calc{
-  display:block;width:100%;
-  background:#c8102e;
-  color:#fff;
-  border:none;border-radius:10px;
-  padding:17px;
-  font-size:16px;font-weight:700;font-family:'Inter',sans-serif;
-  cursor:pointer;
-  letter-spacing:.2px;
-  box-shadow:0 4px 14px rgba(200,16,46,.45);
-  transition:background .15s,transform .1s,box-shadow .15s;
-}
+.btn-calc{display:block;width:100%;background:#c8102e;color:#fff;border:none;border-radius:10px;padding:17px;font-size:16px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;letter-spacing:.2px;box-shadow:0 4px 14px rgba(200,16,46,.45);transition:background .15s,transform .1s,box-shadow .15s}
 .btn-calc:hover{background:#a50d25;box-shadow:0 6px 18px rgba(200,16,46,.5)}
 .btn-calc:active{background:#8a0b1f;transform:scale(.98);box-shadow:0 2px 8px rgba(200,16,46,.3)}
-
 .btn-reset{width:100%;background:transparent;color:#aaa;border:none;padding:10px;font-size:13px;font-family:'Inter',sans-serif;cursor:pointer;margin-top:6px;text-decoration:underline;text-underline-offset:3px}
 .btn-reset:hover{color:#555}
-
 .result{display:none;border-top:1px solid #f0f0f0;margin-top:22px;padding-top:20px}
 .result.show{display:block}
 .rlabel{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#999;margin-bottom:8px}
@@ -62,23 +54,21 @@ body{font-family:'Inter',sans-serif;background:#f0f0f0;min-height:100vh;padding:
 .errorbox.show{display:block}
 .info-ref{font-size:11px;color:#bbb;line-height:1.6;padding-top:10px;border-top:1px solid #f0f0f0}
 </style>
-
+</head>
+<body>
 <div class="card">
   <div class="header">
     <h1>Calculadora de prima de servicios 2026</h1>
-    <p>Salario mínimo: $1.750.905 &nbsp;·&nbsp; Auxilio de transporte: $249.095</p>
+    <p>Salario mínimo: $1.750.905 · Auxilio de transporte: $249.095</p>
   </div>
   <div class="body">
-
     <div class="errorbox" id="errorBox"></div>
     <div class="alertbox" id="alertBox"></div>
-
     <div class="field">
       <label>Salario básico mensual</label>
-      <input type="number" id="salario" placeholder="Ej: 1.750.905" min="0" step="1" inputmode="numeric">
+      <input type="number" id="salario" placeholder="Ej: 1750905" min="0" step="1" inputmode="numeric">
       <small>Solo el salario. No incluya el auxilio de transporte aquí.</small>
     </div>
-
     <div class="row2">
       <div class="field">
         <label>Días trabajados</label>
@@ -93,21 +83,18 @@ body{font-family:'Inter',sans-serif;background:#f0f0f0;min-height:100vh;padding:
         </select>
       </div>
     </div>
-
     <div class="toggle-block">
       <div class="toggle-text">
         <b>¿Recibe auxilio de transporte?</b>
-        Solo aplica si su salario es ≤ $3.501.810 (2 SMMLV)
+        Solo aplica si su salario es igual o menor a $3.501.810 (2 SMMLV)
       </div>
       <label class="sw">
         <input type="checkbox" id="auxCheck">
         <span class="sw-track"></span>
       </label>
     </div>
-
-    <button class="btn-calc" onclick="calcular()">🧮 Calcular prima de servicios</button>
+    <button class="btn-calc" onclick="calcular()">Calcular prima de servicios</button>
     <button class="btn-reset" onclick="resetear()">Limpiar campos</button>
-
     <div class="result" id="result">
       <div class="rlabel" id="rLabel"></div>
       <div class="rmain" id="rMain"></div>
@@ -115,87 +102,59 @@ body{font-family:'Inter',sans-serif;background:#f0f0f0;min-height:100vh;padding:
       <div class="rbadge" id="rBadge"></div>
       <div class="breakdown" id="breakdown"></div>
       <div class="info-ref">
-        Fórmula legal: (Salario + Auxilio*) × Días ÷ 360<br>
-        *El auxilio de transporte solo se suma a la base si el trabajador lo recibe (salario ≤ 2 SMMLV). Art. 306 CST · Ley 50 de 1990.
+        Fórmula legal: (Salario + Auxilio*) x Días / 360<br>
+        *El auxilio de transporte solo se suma si el salario es igual o menor a 2 SMMLV. Art. 306 CST - Ley 50 de 1990.
       </div>
     </div>
-
   </div>
 </div>
-
 <script>
-const SMMLV = 1750905
-const AUX   = 249095
-
-document.getElementById('salario').addEventListener('input', function(){
-  const v = parseFloat(this.value) || 0
-  const chk = document.getElementById('auxCheck')
-  if(v > 0) chk.checked = v <= SMMLV * 2
-})
-
-function fmt(n){
-  return '$' + Math.round(n).toLocaleString('es-CO')
-}
-
+var SMMLV=1750905,AUX=249095;
+function fmt(n){return '$'+Math.round(n).toLocaleString('es-CO');}
+document.getElementById('salario').addEventListener('input',function(){
+  var v=parseFloat(this.value)||0;
+  if(v>0) document.getElementById('auxCheck').checked=v<=SMMLV*2;
+});
 function calcular(){
-  const sal    = parseFloat(document.getElementById('salario').value) || 0
-  const dias   = parseFloat(document.getElementById('dias').value)    || 0
-  const sem    = parseInt(document.getElementById('semestre').value)
-  const conAux = document.getElementById('auxCheck').checked
-  const errBox = document.getElementById('errorBox')
-  const warnBox= document.getElementById('alertBox')
-
-  errBox.className  = 'errorbox'
-  warnBox.className = 'alertbox'
-
-  if(sal <= 0){
-    errBox.innerHTML  = '⚠ Ingrese el salario básico mensual.'
-    errBox.className  = 'errorbox show'
-    return
-  }
-  if(dias < 1 || dias > 180){
-    errBox.innerHTML = '⚠ Los días deben estar entre 1 y 180.'
-    errBox.className = 'errorbox show'
-    return
-  }
-
-  const auxBase = conAux ? AUX : 0
-  const base    = sal + auxBase
-  const prima   = base * dias / 360
-
-  const fechaPago = sem === 1 ? '30 de junio de 2026' : '20 de diciembre de 2026'
-  const semNombre = sem === 1 ? '1.er semestre 2026'  : '2.o semestre 2026'
-
-  document.getElementById('rLabel').textContent = 'Prima · ' + semNombre
-  document.getElementById('rMain').textContent  = fmt(prima)
-  document.getElementById('rSub').textContent   = 'Calculada sobre ' + Math.round(dias) + ' día' + (dias===1?'':'s') + ' trabajados'
-  document.getElementById('rBadge').textContent = '📅 Pago límite: ' + fechaPago
-
-  document.getElementById('breakdown').innerHTML = `
-    <div class="brow"><span>Salario básico mensual</span><span>${fmt(sal)}</span></div>
-    <div class="brow"><span>Auxilio de transporte</span><span>${conAux ? fmt(AUX) : 'No aplica'}</span></div>
-    <div class="brow"><span>Base de liquidación</span><span>${fmt(base)}</span></div>
-    <div class="brow"><span>Factor (${Math.round(dias)} días ÷ 360)</span><span>${(dias/360).toFixed(5)}</span></div>
-    <div class="brow total"><span>Prima de servicios</span><span>${fmt(prima)}</span></div>
-  `
-
-  if(sal < SMMLV){
-    warnBox.innerHTML = '⚠ El salario ingresado ($' + Math.round(sal).toLocaleString('es-CO') + ') está por debajo del salario mínimo legal 2026 ($1.750.905). Verifique el valor.'
-    warnBox.className = 'alertbox show'
-  }
-
-  const r = document.getElementById('result')
-  r.className = 'result show'
-  setTimeout(()=>r.scrollIntoView({behavior:'smooth',block:'start'}), 100)
+  var sal=parseFloat(document.getElementById('salario').value)||0;
+  var dias=parseFloat(document.getElementById('dias').value)||0;
+  var sem=parseInt(document.getElementById('semestre').value);
+  var conAux=document.getElementById('auxCheck').checked;
+  var errBox=document.getElementById('errorBox');
+  var warnBox=document.getElementById('alertBox');
+  errBox.className='errorbox';
+  warnBox.className='alertbox';
+  if(sal<=0){errBox.innerHTML='Ingrese el salario básico mensual.';errBox.className='errorbox show';return;}
+  if(dias<1||dias>180){errBox.innerHTML='Los días deben estar entre 1 y 180.';errBox.className='errorbox show';return;}
+  var auxBase=conAux?AUX:0;
+  var base=sal+auxBase;
+  var prima=base*dias/360;
+  var fechaPago=sem===1?'30 de junio de 2026':'20 de diciembre de 2026';
+  var semNombre=sem===1?'1.er semestre 2026':'2.o semestre 2026';
+  document.getElementById('rLabel').textContent='Prima - '+semNombre;
+  document.getElementById('rMain').textContent=fmt(prima);
+  document.getElementById('rSub').textContent='Calculada sobre '+Math.round(dias)+' día'+(dias===1?'':'s')+' trabajados';
+  document.getElementById('rBadge').textContent='Fecha límite de pago: '+fechaPago;
+  document.getElementById('breakdown').innerHTML=
+    '<div class="brow"><span>Salario básico mensual</span><span>'+fmt(sal)+'</span></div>'+
+    '<div class="brow"><span>Auxilio de transporte</span><span>'+(conAux?fmt(AUX):'No aplica')+'</span></div>'+
+    '<div class="brow"><span>Base de liquidación</span><span>'+fmt(base)+'</span></div>'+
+    '<div class="brow"><span>Factor ('+Math.round(dias)+' días / 360)</span><span>'+(dias/360).toFixed(5)+'</span></div>'+
+    '<div class="brow total"><span>Prima de servicios</span><span>'+fmt(prima)+'</span></div>';
+  if(sal<SMMLV){warnBox.innerHTML='El salario ingresado está por debajo del salario mínimo legal 2026 ($1.750.905). Verifique el valor.';warnBox.className='alertbox show';}
+  var r=document.getElementById('result');
+  r.className='result show';
+  setTimeout(function(){r.scrollIntoView({behavior:'smooth',block:'start'});},100);
 }
-
 function resetear(){
-  document.getElementById('salario').value  = ''
-  document.getElementById('dias').value     = '180'
-  document.getElementById('semestre').value = '1'
-  document.getElementById('auxCheck').checked = false
-  document.getElementById('result').className  = 'result'
-  document.getElementById('errorBox').className  = 'errorbox'
-  document.getElementById('alertBox').className  = 'alertbox'
+  document.getElementById('salario').value='';
+  document.getElementById('dias').value='180';
+  document.getElementById('semestre').value='1';
+  document.getElementById('auxCheck').checked=false;
+  document.getElementById('result').className='result';
+  document.getElementById('errorBox').className='errorbox';
+  document.getElementById('alertBox').className='alertbox';
 }
 </script>
+</body>
+</html>
